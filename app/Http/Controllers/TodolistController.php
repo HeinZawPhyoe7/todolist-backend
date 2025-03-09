@@ -34,9 +34,8 @@ class TodolistController extends Controller
     public function store(Request $request)
     {
         $todolist = new Todolist();
-        $todolist->name = $request->name;
+        $todolist->task = $request->task;
         $todolist->status = $request->status;
-        $todolist->text = $request->text;
         $todolist->save();
 
         return response()->json($todolist, 201);
@@ -45,7 +44,7 @@ class TodolistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Todolist $todolist)
+    public function show(Todolist $id)
     {
         //
     }
@@ -53,7 +52,7 @@ class TodolistController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Todolist $todolist)
+    public function edit(Todolist $id)
     {
         //
     }
@@ -61,16 +60,39 @@ class TodolistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Todolist $todolist)
+    public function update(Request $request, Todolist $id)
     {
-        //
+        $todolist = Todolist::find($id);
+        if(!$todolist){
+            return response()->json([
+                'message' => 'not found'
+            ],404);
+        }
+        $todolist->task = $request->task;
+        $todolist->status = $request->status;
+        $todolist->save();
+
+        return response()->json([
+            'message' =>'successfully updated',
+            'task' => $todolist->task,
+            'status' => $todolist->status,
+            'text' => $todolist->text
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Todolist $todolist)
+    public function destroy(Todolist $id)
     {
-        //
+        $todolist = Todolist::find($id);
+
+        if ($todolist) {
+            $todolist->delete();
+        }
+
+        return response()->json([
+            'message' => 'successfully deleted'
+        ]);
     }
 }

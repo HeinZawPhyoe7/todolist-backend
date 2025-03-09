@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('todolists', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->string("task");
             $table->string("status");
-            $table->string("text");
             $table->timestamps();
         });
     }
