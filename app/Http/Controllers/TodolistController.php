@@ -33,9 +33,14 @@ class TodolistController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'task' => 'required|string',
+            'status' => 'boolean', 
+        ]);
+
         $todolist = new Todolist();
         $todolist->task = $request->task;
-        $todolist->status = $request->status;
+        $todolist->status = (bool) $request->status;
         $todolist->save();
 
         return response()->json($todolist, 201);
@@ -69,7 +74,7 @@ class TodolistController extends Controller
             ],404);
         }
         $todolist->task = $request->task;
-        $todolist->status = $request->status;
+        $todolist->status = (bool) $request->status;
         $todolist->save();
 
         return response()->json([

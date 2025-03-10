@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('todolists', function (Blueprint $table) {
             $table->id();
             $table->string("task");
-            $table->string("status");
+            $table->boolean("status");
             $table->timestamps();
         });
     }
