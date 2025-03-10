@@ -81,7 +81,6 @@ class TodolistController extends Controller
             'message' =>'successfully updated',
             'task' => $todolist->task,
             'status' => $todolist->status,
-            'text' => $todolist->text
         ]);
     }
 
