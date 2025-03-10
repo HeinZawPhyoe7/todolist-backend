@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/create',[TodolistController::class,'store'])->name('create');
 Route::get('/todo-all',[TodolistController::class,'index'])->name('index');
-Route::post('/update',[TodolistController::class,'update'])->name('update');
+Route::post('/update/{id}',[TodolistController::class,'update'])->name('update');
 Route::delete('/delete/{id}',[TodolistController::class,'destroy'])->name('delete');
